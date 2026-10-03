@@ -1,0 +1,29 @@
+# 只发布「同学日安」游戏本体，其余视频/素材工程不进仓库
+/*
+!.gitignore
+!.gitattributes
+!README.md
+!LICENSE
+!.nojekyll
+!index.html
+!publish.ps1
+!SECURITY-AUDIT.md
+!SHELL-PROBE.md
+!TERMINAL-TROUBLESHOOTING.md
+!新/
+!新/geshihua_v15.6.html
+
+# 研发过程截图等私有素材，不发布
+新/研发过程/
+新/bonjour-campus/
+
+# 双保险：这些目录/文件一律忽略
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
+Thumbs.db
