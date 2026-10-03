@@ -4,7 +4,9 @@
 
 游戏本体就是仓库根目录的 **`index.html`**（**约 54.6 MB / 5,725 万字节**）：像素画面由 Canvas 代码实时绘制、音效由 WebAudio 合成、Three.js 与 GLTFLoader 直接内联，另有内嵌的 base64 视频（约 38 MB，`<script>` 里的 `HOME_VIDEO_BASE64`）、八音盒音频（约 1.2 MB）与 3 个 glTF 模型。**没有后端**，双击打开就能玩。
 
-在线试玩：`https://<你的用户名>.github.io/<仓库名>/`（开启 GitHub Pages 后生效）
+在线试玩：**https://duyuanxi.github.io/bonjour-campus/**（GitHub Pages）
+
+仓库：https://github.com/duyuanxi/bonjour-campus
 
 ---
 
@@ -23,28 +25,19 @@ python -m http.server 8000
 
 ### 发布到 GitHub（含在线试玩）
 
-1. 在 GitHub 新建一个 **public** 仓库，例如 `bonjour-campus`（不要勾选自动生成 README）。
-2. 在本目录执行发布脚本 —— 它会先跑一遍敏感信息检查，再提交并推送：
+已经发布完成，仓库为 `duyuanxi/bonjour-campus`，Pages 已开启（Deploy from a branch → `main` → `/ (root)`）。
 
-   ```powershell
-   pwsh -File .\publish.ps1 -DryRun                                    # 只检查，不动 git
-   pwsh -File .\publish.ps1 -RepoUrl https://github.com/<你的用户名>/bonjour-campus.git
-   ```
+以后要更新，在本目录执行：
 
-   不想用脚本的话，手动执行：
+```powershell
+pwsh -File .\publish.ps1 -DryRun                                   # 只做安全检查，不动 git
+git add -A
+git commit -m "更新说明"
+git push
+```
 
-   ```bash
-   git init -b main
-   git add -A
-   git commit -m "feat: 同学日安 Bonjour Campus 单文件像素校园叙事 (v15.6)"
-   git remote add origin https://github.com/<你的用户名>/bonjour-campus.git
-   git push -u origin main
-   ```
-
-3. 仓库 **Settings → Pages**：Source 选 **Deploy from a branch**，Branch 选 `main`、目录选 `/ (root)`，保存。
-4. 等 1–2 分钟，访问 `https://<你的用户名>.github.io/<仓库名>/` 即可在线游玩。
-
-> 根目录的 `index.html` 是给 GitHub Pages 用的跳转页（文件名含中文，直接指向游戏本体），`.nojekyll` 用于跳过 Jekyll 处理。
+> **注意**：本机 git 的全局代理（`http.proxy` / `https.proxy` → `127.0.0.1:3118x`）会让大文件 push 卡死；仓库已配置 `http.https://github.com.proxy = ""` 强制直连，若换机器推送超大文件请照此设置。
+> 单文件 54.6 MB 超过 GitHub 建议的 50 MB，push 时会收到 `GH001: Large files detected` 警告，属正常提示（未使用 Git LFS）。
 
 ---
 
@@ -54,10 +47,10 @@ python -m http.server 8000
 .
 ├── index.html                  # 游戏本体（单文件，全部逻辑 + 内联 Three.js + 内嵌媒体）
 ├── publish.ps1                 # 一键发布脚本（含发布前敏感信息检查）
-├── .gitignore                  # 白名单式：只放行上面的文件
+├── .gitignore                  # 白名单式：只放行列出的文件
 ├── SECURITY-AUDIT.md           # 发布前安全核查报告
 ├── README.md
-└── LICENSE                     # MIT
+└── LICENSE                     # MIT + 第三方组件声明
 ```
 
 `.gitignore` 采用白名单方式，只会提交上面列出的文件；同目录下的其他视频工程、素材与 `node_modules` 都不会进仓库。
@@ -91,5 +84,5 @@ python -m http.server 8000
 
 ## 版本与许可
 
-- 当前版本：**v15.6**（游戏本体 `新/geshihua_v15.6.html`）
-- 许可：MIT，见 [LICENSE](LICENSE)（如需替换署名，修改其中 `Copyright (c) 2025` 一行）
+- 当前版本：**v15.6**（游戏本体 `index.html`；原始文件为 `新/geshihua_v15.6.html`）
+- 许可：MIT，见 [LICENSE](LICENSE)（署名 `Copyright (c) 2026 duyuanxi`，如需变更请直接修改该行）
